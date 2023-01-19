@@ -8,9 +8,9 @@ if has('vim_starting')
 endif
 
 let $VTE_VERSION="100"
-let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
+let vimplug_exists=expand('~/.local/share/nvim/site/autoload/plug.vim')
 "set guicursor=
-let g:vim_bootstrap_langs = "elixir,erlang,go,python"
+"let g:vim_bootstrap_langs = "elixir,erlang,go,python"
 let g:vim_bootstrap_editor = "nvim"				" nvim or vim
 set mouse=a
 
@@ -21,14 +21,15 @@ if !filereadable(vimplug_exists)
   endif
   echo "Installing Vim-Plug..."
   echo ""
-  silent !\curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  silent !\curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   let g:not_finish_vimplug = "yes"
 
   autocmd VimEnter * PlugInstall
 endif
 
 " Required:
-call plug#begin(expand('~/.config/nvim/plugged'))
+call plug#begin()
+"'~/.config/nvim/plugged'))
 
 "*****************************************************************************
 "" Plug install packages
@@ -707,15 +708,15 @@ augroup vimrc-python
 augroup END
 
 " jedi-vim
-let g:jedi#popup_on_dot = 0
-let g:jedi#goto_assignments_command = "<leader>g"
-let g:jedi#goto_definitions_command = "<leader>d"
-let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = "<leader>n"
-let g:jedi#rename_command = "<leader>r"
-let g:jedi#show_call_signatures = "0"
-let g:jedi#completions_command = "<C-Space>"
-let g:jedi#smart_auto_mappings = 0
+"let g:jedi#popup_on_dot = 0
+"let g:jedi#goto_assignments_command = "<leader>g"
+"let g:jedi#goto_definitions_command = "<leader>d"
+"let g:jedi#documentation_command = "K"
+"let g:jedi#usages_command = "<leader>n"
+"let g:jedi#rename_command = "<leader>r"
+"let g:jedi#show_call_signatures = "0"
+"let g:jedi#completions_command = "<C-Space>"
+"let g:jedi#smart_auto_mappings = 0
 
 " syntastic
 "let g:syntastic_python_checkers=['python', 'flake8']
