@@ -10,9 +10,9 @@ vim.keymap.set('n', '<leader>h', vim.cmd.split)
 vim.keymap.set('n', '<leader>v', vim.cmd.vsplit)
 
 -- Cut/Copy
-vim.keymap.set('n','YY','"+y<CR>"')
+vim.keymap.set('n','YY','"+y')
 --vim.keymap.set('n','<leader>p','"+gP<CR>"')
-vim.keymap.set('n','XX','+x<CR>')
+vim.keymap.set('n','XX','+x')
 
 
 vim.keymap.set('n', '<Tab>', vim.cmd.gt)
@@ -35,34 +35,33 @@ vim.keymap.set('n','<C-l>','<C-w>l')
 vim.keymap.set('n','<C-h>','<C-w>h')
 
 
+-- Reposition windows
 vim.keymap.set('n','<leader>J','<C-W>J')
 vim.keymap.set('n','<leader>K','<C-W>K')
 vim.keymap.set('n','<leader>L','<C-W>L')
 vim.keymap.set('n','<leader>H','<C-W>H')
 
 -- Vmap for maintain Visual Mode after shifting > and <
---vim.keymap.set('v','<','<gv')
---vim.keymap.set('v','>','>gv')
+vim.keymap.set('v','<','<gv')
+vim.keymap.set('v','>','>gv')
 
 -- Move visual block
 vim.keymap.set('v', 'J', ':m \'>+1<CR>gv=gv')
 vim.keymap.set('v', 'K', ':m \'<-2<CR>gv=gv')
 
-vim.cmd ([[
-function! OpenLines(nrlines, dir)
-  let nrlines = a:nrlines < 3 ? 3 : a:nrlines
-  let start = line('.') + a:dir
-  call append(start, repeat([''], nrlines))
-  if a:dir < 0
-    normal! 2k
-  else
-    normal! 2j
-  endif
-endfunction
-]])
--- Mappings to open multiple lines and enter insert mode.
-vim.keymap.set('n', '<leader>o', ':<C-u>call OpenLines(v:count, 0)<CR>S')
-vim.keymap.set('n', '<leader>O', ':<C-u>call OpenLines(v:count, -1)<CR>S')
+-- key cursor poisiton  with J
+vim.keymap.set('n', 'J', 'mzJ`z')
+
+-- keep cursor centered vertically with zz 
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
+
+-- keep search centered vertically
+vim.keymap.set('n', 'n', 'nzzzv')
+vim.keymap.set('n', 'N', 'Nzzzv')
+
+vim.keymap.set('x', '<leader>p', '"_dp')
+vim.keymap.set('n', '<leader>y', '"+y')
 
 
 
