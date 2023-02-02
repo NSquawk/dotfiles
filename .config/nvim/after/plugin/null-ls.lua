@@ -1,4 +1,3 @@
-print('hello from null-ls')
 local null_ls = require('null-ls')
 
 local sources = {

@@ -1,4 +1,3 @@
-print('lsp.lua loaded')
 local lsp = require('lsp-zero')
 
 --lsp.clangd.setup{}

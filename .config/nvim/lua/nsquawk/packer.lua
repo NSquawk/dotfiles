@@ -1,9 +1,22 @@
 --print('packer.lua loaded')
 
-vim.cmd [[packadd packer.nvim]]
+--vim.cmd [[packadd packer.nvim]]
 
 
---local use = require('packer').use
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    vim.cmd [[packadd packer.nvim]]
+    return true
+  end
+  return false
+end
+
+local packer_bootstrap = ensure_packer()
+
+
 require('packer').startup(function(use)
     use 'wbthomason/packer.nvim' -- package manager
     use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } } -- Telescope fuzzy finder
@@ -29,8 +42,6 @@ require('packer').startup(function(use)
         requires = { 'nvim-lua/plenary.nvim' }, -- this isn't installing for some reason
     })
     use('mbbill/undotree')
-    --use ('williamboman/nvim-lsp-installer') -- Automatically install LSPs
-    --use ('mhartington/formatter.nvim')
 
 
     use { 'VonHeikemen/lsp-zero.nvim',
