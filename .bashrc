@@ -135,3 +135,6 @@ export PS1="\[\033[01;32m\]\u@\h:\[\033[01;34m\]\$(generate_pwd)\[\033[00m\]-> "
 #"[\033[00m\]:\[\033[01;34m\]"
 #[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$"
 #\u@\h \$(generate_pwd) ->"
+
+export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:~/go/bin

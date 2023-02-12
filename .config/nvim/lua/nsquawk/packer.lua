@@ -19,31 +19,38 @@ local packer_bootstrap = ensure_packer()
 
 require('packer').startup(function(use)
     use 'wbthomason/packer.nvim' -- package manager
-    use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } } -- Telescope fuzzy finder
+    use { 'nvim-telescope/telescope.nvim',
+        requires = {{ 'nvim-lua/plenary.nvim' }, { 'kdheepak/lazygit.nvim' }},
+        config = function()
+            require('telescope').load_extension('lazygit')
+        end,
+    }-- Telescope fuzzy finder
     use({ 'sainnhe/gruvbox-material' })
     use({ 'nvim-treesitter/nvim-treesitter' }, { run = ':TSUpdate' })
     use({ 'Yggdroot/indentLine' })
     use({ 'theprimeagen/harpoon' })
-    --use ({'sbdchd/neoformat'})
     use({ 'vim-airline/vim-airline' })
     use({ 'vim-airline/vim-airline-themes' })
     use({ 'scrooloose/nerdtree' })
     use({ 'jistr/vim-nerdtree-tabs' })
     use({ 'avelino/vim-bootstrap-updater' })
     use({ 'tpope/vim-commentary' })
-    use({ 'tpope/vim-fugitive' })
-
+    use({ 'lewis6991/gitsigns.nvim' })
+--    use({ 'numToStr/FTerm.nvim' })
+    use {"akinsho/toggleterm.nvim", tag = '*', config = function()
+        require("toggleterm").setup()
+    end}
     --use ({'bronson/vim-trailing-whitespace'})
     --use ({'Raimondi/delimitMate'})
     --use ({'majutsushi/tagbar'})
 
     use({
         'jose-elias-alvarez/null-ls.nvim',
-        requires = { 'nvim-lua/plenary.nvim' }, -- this isn't installing for some reason
+        requires = { 'nvim-lua/plenary.nvim' }, 
     })
     use('mbbill/undotree')
 
-
+    use ({ 'hrsh7th/cmp-cmdline' })
     use { 'VonHeikemen/lsp-zero.nvim',
         branch = 'v1.x',
         requires = {

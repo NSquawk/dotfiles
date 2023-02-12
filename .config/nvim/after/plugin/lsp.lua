@@ -24,7 +24,7 @@ lsp.on_attach(function(client, bufnr)
         vim.inspect(vim.lsp.buf.list_workspace_folders())
     end, opts)
     vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
-    vim.keymap.set('n', '<peader>rn', vim.lsp.buf.rename, opts)
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
     vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
     --vim.keymap.set('n', '<leader>so', require('telescope.builtin').lsp_document_symbols, opts)
@@ -97,4 +97,35 @@ cmp.setup {
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
     },
+    enabled = function()
+        if require"cmp.config.context".in_treesitter_capture("comment")==true or require"cmp.config.context".in_syntax_group("Comment") then
+          return false
+        else
+          return true
+        end
+    end
 }
+
+-- `/` cmdline setup.
+    cmp.setup.cmdline('/', {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = {
+        { name = 'buffer' }
+      }
+    })
+    
+-- `:` cmdline setup.
+    cmp.setup.cmdline(':', {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = cmp.config.sources({
+        { name = 'path' }
+      }, {
+        {
+          name = 'cmdline',
+          option = {
+            ignore_cmds = { 'Man', '!' }
+          }
+        }
+      })
+    })
+
