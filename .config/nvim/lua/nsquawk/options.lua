@@ -15,7 +15,7 @@ vim.opt.hidden = true
 
 vim.opt.splitright = true
 vim.opt.splitbelow = true
-
+vim.opt.cursorline = true
 -- Searching
 --vim.cmd([[
 --    set hlsearch
@@ -68,3 +68,11 @@ vim.opt.colorcolumn = '120'
 vim.opt.ruler = true
 vim.opt.number = true
 vim.opt.relativenumber = true
+
+
+
+--"*****************************************************************************
+-- treesitter code folding
+--******************************************************************************
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"

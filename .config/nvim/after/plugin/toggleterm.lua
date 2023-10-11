@@ -6,7 +6,7 @@ require('toggleterm').setup{
           return vim.o.columns * 0.4
         end
     end,
-    open_mapping = '<leader>tt',
+    open_mapping = '<C-t>',
     direction = 'horizontal',
     terminal_mappings = false,
     start_in_insert = false
@@ -30,10 +30,10 @@ vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 -- inoremap <silent><c-t>t <Esc><Cmd>exe v:count1 . "ToggleTerm"<CR>
 -- ]]
 
-vim.keymap.set('n', '<leader>ta',':ToggleTermToggleAll<CR>')
-vim.keymap.set('n', '<leader>tc',':ToggleTermSendCurrentLine')
-vim.keymap.set('v', '<leader>tl',':ToggleTermSendVisualLines<CR>')
-vim.keymap.set('v', '<leader>tv',':ToggleTermSendVisualSelection<CR>')
+-- vim.keymap.set('n', '<leader>ta',':ToggleTermToggleAll<CR>')
+-- vim.keymap.set('n', '<leader>tc',':ToggleTermSendCurrentLine')
+-- vim.keymap.set('v', '<leader>tl',':ToggleTermSendVisualLines<CR>')
+-- vim.keymap.set('v', '<leader>tv',':ToggleTermSendVisualSelection<CR>')
 
 
 -- vim.cmd[[

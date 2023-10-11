@@ -15,8 +15,10 @@ vim.keymap.set('n','YY','"+y')
 vim.keymap.set('n','XX','+x')
 
 
-vim.keymap.set('n', '<Tab>', vim.cmd.gt)
-vim.keymap.set('n', '<S-Tab>', vim.cmd.gT)
+vim.keymap.set('n', '<C-Right>', 'gt<CR>')-- vim.cmd.gt)
+vim.keymap.set('n', '<C-Left>', 'gT<CR>')-- vim.cmd.gt)
+-- vim.keymap.set('n', '<S-Tab>','gT<CR>')-- vim.cmd.gT)
+-- vim.keymap.set('n', '<S-Tab>','gT<CR>')-- vim.cmd.gT)
 vim.keymap.set('n', '<silent> <S-t>', ':tabnew<CR>')
 
 
@@ -91,3 +93,15 @@ end
 
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+
+-- Diagnostic keymaps
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+
+vim.cmd ([[
+xnoremap aM :<c-u>normal [mv]M<cr>
+onoremap aM :normal vaM<cr>
+]])
+--vim.keymap.set('n', 'aM', '[mv]M<CR>' , opts)

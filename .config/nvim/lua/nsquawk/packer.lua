@@ -19,36 +19,65 @@ local packer_bootstrap = ensure_packer()
 
 require('packer').startup(function(use)
     use 'wbthomason/packer.nvim' -- package manager
-    use { 'nvim-telescope/telescope.nvim',
-        requires = {{ 'nvim-lua/plenary.nvim' }, { 'kdheepak/lazygit.nvim' }},
-        config = function()
-            require('telescope').load_extension('lazygit')
-        end,
-    }-- Telescope fuzzy finder
-    use({ 'sainnhe/gruvbox-material' })
-    use({ 'nvim-treesitter/nvim-treesitter' }, { run = ':TSUpdate' })
-    use({ 'Yggdroot/indentLine' })
-    use({ 'theprimeagen/harpoon' })
-    use({ 'vim-airline/vim-airline' })
-    use({ 'vim-airline/vim-airline-themes' })
-    use({ 'scrooloose/nerdtree' })
-    use({ 'jistr/vim-nerdtree-tabs' })
-    use({ 'avelino/vim-bootstrap-updater' })
-    use({ 'tpope/vim-commentary' })
-    use({ 'lewis6991/gitsigns.nvim' })
---    use({ 'numToStr/FTerm.nvim' })
-    use {"akinsho/toggleterm.nvim", tag = '*', config = function()
-        require("toggleterm").setup()
-    end}
-    --use ({'bronson/vim-trailing-whitespace'})
-    --use ({'Raimondi/delimitMate'})
-    --use ({'majutsushi/tagbar'})
 
-    use({
+    use 'kdheepak/lazygit.nvim' 
+
+    -- Telescope fuzzy finder
+    use {
+         'nvim-telescope/telescope.nvim',
+         branch = '0.1.x',
+         requires = {
+              'nvim-lua/plenary.nvim',
+           -- Fuzzy Finder Algorithm which requires local dependencies to be built.
+           -- Only load if `make` is available. Make sure you have the system
+           -- requirements installed.
+           { 
+             'nvim-telescope/telescope-fzf-native.nvim',
+              --NOTE: If you are having trouble with this installation,
+              --      refer to the README for telescope-fzf-native for more instructions.
+             run = 'make',
+             -- cond = function()
+             --   return vim.fn.executable 'make' == 1
+             -- end,
+            },
+         },
+     }
+
+
+    use 'sainnhe/gruvbox-material' 
+    use {'nvim-treesitter/nvim-treesitter',
+         requires = {
+             'nvim-treesitter/nvim-treesitter-textobjects',
+         },
+
+        run = ':TSUpdate',
+    }
+    use 'nvim-treesitter/nvim-treesitter-context'
+    use 'Yggdroot/indentLine' 
+    use 'theprimeagen/harpoon' 
+    use 'vim-airline/vim-airline' 
+    use 'vim-airline/vim-airline-themes' 
+    use 'scrooloose/nerdtree' 
+    use 'jistr/vim-nerdtree-tabs' 
+    use 'tpope/vim-commentary' 
+    use 'tpope/vim-fugitive' 
+    use {"akinsho/toggleterm.nvim", 
+        tag = '*', 
+        config = function()
+            require("toggleterm").setup()
+        end
+    }
+    use 'fatih/vim-go'
+    use  'simrat39/rust-tools.nvim' 
+
+    use {
         'jose-elias-alvarez/null-ls.nvim',
-        requires = { 'nvim-lua/plenary.nvim' }, 
-    })
-    use('mbbill/undotree')
+         requires = { 'nvim-lua/plenary.nvim' }, 
+    }
+    use 'mbbill/undotree'
+
+    -- Useful plugin to show you pending keybinds.
+    use { 'folke/which-key.nvim', opts = {} }
 
     use ({ 'hrsh7th/cmp-cmdline' })
     use { 'VonHeikemen/lsp-zero.nvim',
@@ -66,6 +95,7 @@ require('packer').startup(function(use)
             { 'hrsh7th/cmp-path' }, -- Optional
             { 'saadparwaiz1/cmp_luasnip' }, -- Optional
             { 'hrsh7th/cmp-nvim-lua' }, -- Optional
+            { 'hrsh7th/cmp-nvim-lsp-signature-help' },
 
             -- Snippets
             { 'L3MON4D3/LuaSnip' }, -- Required
@@ -75,4 +105,42 @@ require('packer').startup(function(use)
         }
     }
 
+    use {
+    -- Adds git related signs to the gutter, as well as utilities for managing changes
+    'lewis6991/gitsigns.nvim',
+    opts = {
+      -- See `:help gitsigns.txt`
+      signs = {
+        add = { text = '+' },
+        change = { text = '~' },
+        delete = { text = '_' },
+        topdelete = { text = '‾' },
+        changedelete = { text = '~' },
+      },
+      on_attach = function(bufnr)
+        vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk, { buffer = bufnr, desc = 'Preview git hunk' })
+
+        -- don't override the built-in and fugitive keymaps
+        local gs = package.loaded.gitsigns
+        vim.keymap.set({ 'n', 'v' }, ']c', function()
+          if vim.wo.diff then
+            return ']c'
+          end
+          vim.schedule(function()
+            gs.next_hunk()
+          end)
+          return '<Ignore>'
+        end, { expr = true, buffer = bufnr, desc = 'Jump to next hunk' })
+        vim.keymap.set({ 'n', 'v' }, '[c', function()
+          if vim.wo.diff then
+            return '[c'
+          end
+          vim.schedule(function()
+            gs.prev_hunk()
+          end)
+          return '<Ignore>'
+        end, { expr = true, buffer = bufnr, desc = 'Jump to previous hunk' })
+      end,
+    },
+  }
 end)

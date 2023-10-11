@@ -6,6 +6,8 @@ lsp.preset('recommended')
 
 lsp.ensure_installed({
     'clangd',
+    'rust_analyzer',
+    'gopls',
 })
 
 -- Common LSP On Attach function
@@ -15,17 +17,18 @@ lsp.on_attach(function(client, bufnr)
 
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', '<leader>sh', vim.lsp.buf.signature_help, opts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', '<leader>gh', vim.lsp.buf.signature_help, opts)
     vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, opts)
     vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, opts)
     vim.keymap.set('n', '<leader>wl', function()
         vim.inspect(vim.lsp.buf.list_workspace_folders())
     end, opts)
+    --vim.keymap.set('n', '<leader>vca', function() vim.lsp.buf.code_action() end, opts)
     vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
     vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
     vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
     --vim.keymap.set('n', '<leader>so', require('telescope.builtin').lsp_document_symbols, opts)
 
@@ -40,18 +43,6 @@ end)
 
 lsp.setup()
 
--- nvim-cmp supports additional completion capabilities
---local capabilities = vim.lsp.protocol.make_client_capabilities()
---capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
-
--- LSPs with default setup: bashls (Bash), cssls (CSS), html (HTML), clangd (C/C++), jsonls (JSON)
--- for _, lsp in ipairs { 'clangd' } do
---     lspconfig[lsp].setup {
---         on_attach = on_attach,
---         capabilities = capabilities,
---     }
--- end
 
 
 -- luasnip setup
@@ -96,6 +87,11 @@ cmp.setup {
     sources = {
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
+        { name = 'nvim_lsp_signature_help' },
+    },
+    window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
     },
     enabled = function()
         if require"cmp.config.context".in_treesitter_capture("comment")==true or require"cmp.config.context".in_syntax_group("Comment") then
