@@ -1,3 +1,4 @@
+--local vim = require('vim')
 --print('options.lua loaded')
 vim.opt.writebackup = false
 
@@ -5,10 +6,12 @@ vim.opt.writebackup = false
 
 -- Tabs. May be overriten by autocmd rules
 vim.opt.tabstop=4
-vim.opt.softtabstop=4
+vim.opt.softtabstop=3
 vim.opt.shiftwidth=4
 vim.opt.expandtab = true
 
+
+vim.opt.showmode = false
 
 -- Enable hidden buffers
 vim.opt.hidden = true
@@ -42,13 +45,10 @@ vim.opt.smartcase = true
 vim.g.session_autosave = 'no'
 vim.g.session_autoload = 'no'
 
-vim.opt.termguicolors = false
+vim.opt.background = 'dark'
+vim.opt.termguicolors = true
 
 
---vim.bo.buffers_menu = false
---vim.cmd[[
---    no_buffers_menu=1
---]]
 
 -- Cut/Copy/Paste
 vim.opt.clipboard = 'unnamed,unnamedplus'
@@ -76,3 +76,29 @@ vim.opt.relativenumber = true
 --******************************************************************************
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldenable = false
+vim.opt.foldnestmax = 1
+
+vim.cmd[[
+
+        if has('termguicolors')
+          set termguicolors
+        endif
+
+        " For dark version.
+        set background=dark
+
+
+        " Set contrast.
+        " This configuration option should be placed before `colorscheme everforest`.
+        " Available values: 'hard', 'medium'(default), 'soft'
+        let g:everforest_background = 'hard'
+        let g:gruvbox_material_background = 'hard'
+
+        " For better performance
+        let g:everforest_better_performance = 1
+        let g:gruvbox_material_better_performance = 1
+
+        colorscheme gruvbox-material
+        "colorscheme everforest
+]]

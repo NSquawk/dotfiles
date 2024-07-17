@@ -1,6 +1,6 @@
 require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
+    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'lua', 'haskell'},
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
@@ -63,29 +63,29 @@ require('nvim-treesitter.configs').setup {
   }
 
 
-local vim = vim
-local api = vim.api
-local M = {}
--- function to create a list of commands and convert them to autocommands
--------- This function is taken from https://github.com/norcalli/nvim_utils
-function M.nvim_create_augroups(definitions)
-    for group_name, definition in pairs(definitions) do
-        api.nvim_command('augroup '..group_name)
-        api.nvim_command('autocmd!')
-        for _, def in ipairs(definition) do
-            local command = table.concat(vim.tbl_flatten{'autocmd', def}, ' ')
-            api.nvim_command(command)
-        end
-        api.nvim_command('augroup END')
-    end
-end
+-- local vim = vim
+-- local api = vim.api
+-- local M = {}
+-- -- function to create a list of commands and convert them to autocommands
+-- -------- This function is taken from https://github.com/norcalli/nvim_utils
+-- function M.nvim_create_augroups(definitions)
+--     for group_name, definition in pairs(definitions) do
+--         api.nvim_command('augroup '..group_name)
+--         api.nvim_command('autocmd!')
+--         for _, def in ipairs(definition) do
+--             local command = table.concat(vim.tbl_flatten{'autocmd', def}, ' ')
+--             api.nvim_command(command)
+--         end
+--         api.nvim_command('augroup END')
+--     end
+-- end
 
 
-local autoCommands = {
-    -- other autocommands
-    open_folds = {
-        {"BufReadPost,FileReadPost", "*", "normal zR"}
-    }
-}
+-- local autoCommands = {
+--     -- other autocommands
+--     open_folds = {
+--         {"BufReadPost,FileReadPost", "*", "normal zR"}
+--     }
+-- }
 
-M.nvim_create_augroups(autoCommands)
+-- M.nvim_create_augroups(autoCommands)

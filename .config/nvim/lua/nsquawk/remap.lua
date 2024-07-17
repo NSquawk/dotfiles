@@ -19,7 +19,7 @@ vim.keymap.set('n', '<C-Right>', 'gt<CR>')-- vim.cmd.gt)
 vim.keymap.set('n', '<C-Left>', 'gT<CR>')-- vim.cmd.gt)
 -- vim.keymap.set('n', '<S-Tab>','gT<CR>')-- vim.cmd.gT)
 -- vim.keymap.set('n', '<S-Tab>','gT<CR>')-- vim.cmd.gT)
-vim.keymap.set('n', '<silent> <S-t>', ':tabnew<CR>')
+vim.keymap.set('n', '<S-t>', ':tabnew<CR>')
 
 
 -- Buffer Nav
@@ -29,6 +29,15 @@ vim.keymap.set('n','<leader>x',':bn<CR>')
 -- Buffer Close
 vim.keymap.set('n','<leader>c',':bd<CR>')
 
+-- Ctrl-s to save file
+-- not working, will figure out later
+-- possibly terminal eating ctrl-s?
+vim.keymap.set('n','<C-s>',':w<CR>')
+vim.keymap.set('i','<C-s>','<ESC>:w<CR>')
+
+-- Cursor movement
+vim.keymap.set('n','H','0')
+vim.keymap.set('n','L','$')
 
 -- Moving between windows
 vim.keymap.set('n','<C-j>','<C-w>j')
@@ -38,10 +47,10 @@ vim.keymap.set('n','<C-h>','<C-w>h')
 
 
 -- Reposition windows
-vim.keymap.set('n','<leader>J','<C-W>J')
-vim.keymap.set('n','<leader>K','<C-W>K')
-vim.keymap.set('n','<leader>L','<C-W>L')
-vim.keymap.set('n','<leader>H','<C-W>H')
+vim.keymap.set('n','<A-j>','<C-W>J')
+vim.keymap.set('n','<A-k>','<C-W>K')
+vim.keymap.set('n','<A-l>','<C-W>L')
+vim.keymap.set('n','<A-h>','<C-W>H')
 
 -- Vmap for maintain Visual Mode after shifting > and <
 vim.keymap.set('v','<','<gv')
@@ -51,7 +60,7 @@ vim.keymap.set('v','>','>gv')
 vim.keymap.set('v', 'J', ':m \'>+1<CR>gv=gv')
 vim.keymap.set('v', 'K', ':m \'<-2<CR>gv=gv')
 
--- key cursor poisiton  with J
+-- key cursor position  with J
 vim.keymap.set('n', 'J', 'mzJ`z')
 
 -- keep cursor centered vertically with zz 
